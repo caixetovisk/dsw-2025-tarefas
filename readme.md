@@ -64,7 +64,12 @@ mysql -uroot -p
 create database my_tarefas;
 ```
 
-### Criar as colunas
+## utilizar o banco criado
+```sql
+use my_tarefas;
+```
+
+### Criar as tabelas
 
 ```sql
 --- Tablea usuário
@@ -75,7 +80,7 @@ create table usuario(
     senha varchar(255) not null,
     email varchar(255) not null unique,
     foto_path varchar(255) null
-)
+);
 
 --- Tabela de Tarefa
 create table tarefa(
@@ -83,6 +88,22 @@ create table tarefa(
     titulo varchar(255) not null,
     descricao text not null unique,
     status tinyint(1) not null,
-    user_id int not null
-)
+    user_id int not null,
+    CONSTRAINT fk_usuario_tarefa FOREIGN KEY (user_id) REFERENCES usuario(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+```
+
+# Verificar a estrutura da tabela
+
+```sql
+describe usuario;
+describe tarefa;
+```
+
+## Verificar se tem algo na tabela (consulta todos os registros)
+
+```sql
+select * from usuario;
+select * from tarefa;
 ```
