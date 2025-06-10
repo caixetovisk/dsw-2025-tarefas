@@ -52,6 +52,7 @@ $app->post('/usuario', function(Request $request, Response $response, array $arg
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+// listando usuário
 $app->get('/usuario/{id}', 
     function(Request $request, Response $response, array $args) use ($banco)
  {
@@ -62,6 +63,39 @@ $app->get('/usuario/{id}',
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+// Atualizar usuário
+$app->put('/usuario/{id}', 
+    function(Request $request, Response $response, array $args) use ($banco)
+ {
+    $campos_obrigatórios = ['nome', "login", 'senha', "email"];
+    $body = json_decode($request->getBody()->getContents(), true);
+
+    try{
+        $usuario = new Usuario($banco->getConnection());
+        $usuario->id = $args['id'];
+        $usuario->nome = $body['nome'] ?? '';
+        $usuario->email = $body['email'] ?? '';
+        $usuario->login = $body['login'] ?? '';
+        $usuario->senha = $body['senha'] ?? '';
+        $usuario->foto_path = $body['foto_path'] ?? '';
+        foreach($campos_obrigatórios as $campo){
+            if(empty($usuario->{$campo})){
+                throw new \Exception("o campo {$campo} é obrigatório");
+            }
+        }
+        $usuario->update();
+    }catch(\Exception $exception){
+         $response->getBody()->write(json_encode(['message' => $exception->getMessage() ]));
+         return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+    }
+
+    $response->getBody()->write(json_encode([
+        'message' => 'Usuário autalizado com sucesso!'
+    ]));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+// deletando usuário
 $app->delete('/usuario/{id}', 
     function(Request $request, Response $response, array $args) use ($banco)
  {

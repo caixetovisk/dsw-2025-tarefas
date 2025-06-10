@@ -37,7 +37,13 @@ class Usuario
         $sql = "SELECT * FROM usuario WHERE id = :id";
         $stmt = $this->conexao->prepare($sql);
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch();
+        $resultado = $stmt->fetch();
+        if($resultado){
+            unset($resultado['senha']);
+            return $resultado;
+        }
+        
+        return [];
     }
 
     public function update(): bool
