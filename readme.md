@@ -107,3 +107,11 @@ describe tarefa;
 select * from usuario;
 select * from tarefa;
 ```
+
+---
+# Fazer frontend com phpslim
+Deve-se instalar o pacote: 
+
+```bash
+composer require slim/php-view
+```
