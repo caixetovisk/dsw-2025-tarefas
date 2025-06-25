@@ -1,0 +1,13 @@
+#login{
+   padding-left:40%;
+   padding-right:40%;
+   padding-top:25%;
+}
+
+form div{
+     padding:10px;
+}
+
+form div:last-of-type{
+    text-align:right
+}

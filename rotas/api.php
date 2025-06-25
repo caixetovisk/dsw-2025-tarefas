@@ -1,4 +1,8 @@
 <?php
+use App\Models\Tarefa;
+use App\Models\Usuario;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 $app->get('/usuario/{id}/tarefa', 
     function(Request $request, Response $response, array $args) use ($banco)
