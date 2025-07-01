@@ -2,8 +2,8 @@
 use Slim\Views\PhpRenderer;
 
 $app->get('/', function ($request, $response) {
-    $renderer = new PhpRenderer(__DIR__ . '/../views');
-    return $renderer->render($response, 'login/login.php');
+    $renderer = new PhpRenderer(__DIR__ . '/../views/login');
+    return $renderer->render($response, 'login.php');
 });
 
 $app->get('/esqueci-minha-senha', function ($request, $response) {

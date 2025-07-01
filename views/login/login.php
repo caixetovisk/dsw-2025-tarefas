@@ -1,16 +1,17 @@
 <?php require_once(__DIR__ . '/../components/header.php'); ?>
-<div id="login">
+<div id="tela-login">
     <form>
         <div>
             <label>Login</label>
-            <input type="text" name="login">
+            <input type="text" id="login" name="login" required>
         </div>
         <div>
             <label>Senha</label>
-            <input type="password" name="senha">
+            <input type="password" id="senha" name="senha" required>
         </div>
+        <div id="msg-erro">Login ou senha incorreto</div>
         <div>
-            <button type="button">Entrar</button>
+            <button type="button" id="entrar">Entrar</button>
             <br>
             <a href="/esqueci-minha-senha">Esqueci minha senha</a>
             <br>

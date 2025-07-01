@@ -1,7 +1,7 @@
-#login{
+#tela-login{
    padding-left:40%;
    padding-right:40%;
-   padding-top:25%;
+   
 }
 
 form div{
@@ -10,4 +10,9 @@ form div{
 
 form div:last-of-type{
     text-align:right
+}
+
+#msg-erro{
+    display: none;
+    color: red;
 }
