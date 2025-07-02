@@ -15,3 +15,8 @@ $app->get('/cadastrar', function ($request, $response) {
     $renderer = new PhpRenderer(__DIR__ . '/../views');
     return $renderer->render($response, 'login/cadastrar.php');
 });
+
+$app->get('/home', function ($request, $response) {
+    $renderer = new PhpRenderer(__DIR__ . '/../views');
+    return $renderer->render($response, 'tarefa/listar.php');
+});

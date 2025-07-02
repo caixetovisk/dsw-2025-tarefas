@@ -105,8 +105,6 @@ $app->delete(
 $app->post('/login', function (Request $request, Response $response, array $args) use ($banco) {
     $campos_obrigatórios = ['login', "senha"];
     $body = json_decode($request->getBody()->getContents(), true);
-    $login_fake = 'caixeta';
-    $senha_fake = '123456';
 
     try {
         foreach ($campos_obrigatórios as $campo) {
@@ -114,11 +112,11 @@ $app->post('/login', function (Request $request, Response $response, array $args
                 throw new \Exception("Login ou senha não informado");
             }
         }
-
-        if ($body['login'] !== $login_fake || $body['senha'] !== $senha_fake) {
+        $usuario = new Usuario($banco->getConnection());
+        $login = $usuario->realizarLogin($body['login'], $body['senha']);
+        if (empty($login)) {
             throw new \Exception("Login ou senha inválidos");
         }
-
         $response->getBody()->write(json_encode([
             'status' => true,
             'message' => 'Login realizado com sucesso!'

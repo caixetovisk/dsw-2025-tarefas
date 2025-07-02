@@ -69,9 +69,19 @@ class Usuario
         return $stmt->execute([':id' => $id]);
     }
 
-
-    // criar a propriedade da conexão igual à classe tarefa - OK
-    // Criar o método construtor igual à tarefa - OK
-    // criar os métodos create, findById, update e delete para gerenciar os usuários
+    public function realizarLogin(string $login, string $senha) : array
+    {
+        $sql = "SELECT * FROM usuario WHERE login = :login";
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->execute([':login' => $login]);
+        $resultado = $stmt->fetch();
+        if($resultado){
+           if(password_verify($senha, $resultado['senha'])){
+            unset($resultado['senha']);
+            return $resultado;
+           }            
+        }
+        return [];
+    }
     
 }
