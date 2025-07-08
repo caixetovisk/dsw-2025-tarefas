@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\SessaoUsuario;
 use App\Models\Tarefa;
 use App\Models\Usuario;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -117,6 +118,10 @@ $app->post('/login', function (Request $request, Response $response, array $args
         if (empty($login)) {
             throw new \Exception("Login ou senha inválidos");
         }
+
+        $sessao = SessaoUsuario::getInstancia();
+        $sessao->login($login);
+
         $response->getBody()->write(json_encode([
             'status' => true,
             'message' => 'Login realizado com sucesso!'

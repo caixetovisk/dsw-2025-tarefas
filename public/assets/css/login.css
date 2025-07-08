@@ -16,3 +16,14 @@ form div:last-of-type{
     display: none;
     color: red;
 }
+
+
+#btn_logout{
+    display: inline-block;
+    background-color: bisque;
+    padding: 20px;
+    width: 150px;
+    text-align: center;
+    text-decoration: none;
+    font-size: x-large;
+}
