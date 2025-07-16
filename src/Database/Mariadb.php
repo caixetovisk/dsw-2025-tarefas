@@ -1,14 +1,22 @@
 <?php
+
 namespace App\Database;
 
-class Mariadb {
-    private string $host = "localhost"; // endereço do servidor
-    private string $dbname = "my_tarefas"; // nome do banco
-    private string $username = "root"; // usuário do banco
-    private string $password = "123456"; // senha do usuário do banco
+class Mariadb
+{
+    private string $host = ""; // endereço do servidor
+    private string $dbname = ""; // nome do banco
+    private string $username = ""; // usuário do banco
+    private string $password = ""; // senha do usuário do banco
     private ?\PDO $connection = null; // conexão com o banco
 
-    public function __construct() {
+    public function __construct()
+    {
+
+        $this->host     = $_ENV['DB_HOST']     ?? throw new \RuntimeException('DB_HOST não definido');
+        $this->dbname   = $_ENV['DB_NAME']     ?? throw new \RuntimeException('DB_NAME não definido');
+        $this->username = $_ENV['DB_USER']     ?? throw new \RuntimeException('DB_USER não definido');
+        $this->password = $_ENV['DB_PASS']     ?? throw new \RuntimeException('DB_PASS não definido');
         try {
             $this->connection = new \PDO(
                 "mysql:host={$this->host};dbname={$this->dbname};charset=utf8",
@@ -25,9 +33,8 @@ class Mariadb {
         }
     }
 
-    public function getConnection(): ?\PDO {
+    public function getConnection(): ?\PDO
+    {
         return $this->connection;
     }
 }
-
-?>
