@@ -3,6 +3,7 @@
 use App\Models\SessaoUsuario;
 use App\Models\Tarefa;
 use App\Models\Usuario;
+use App\Servico\EmailSmtpService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -35,6 +36,9 @@ $app->post('/usuario', function (Request $request, Response $response, array $ar
             }
         }
         $usuario->create();
+        $email = new EmailSmtpService();
+        $email->addDestinario($usuario->email);
+        $email->enviaEmailBoasVindas($usuario->nome);
     } catch (\Exception $exception) {
         $response->getBody()->write(json_encode(['message' => $exception->getMessage()]));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
